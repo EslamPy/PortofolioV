@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 
-import { supabase } from "../supabase"; 
+import { supabase } from "../supabase";
 
 import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
+// import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
@@ -151,7 +151,7 @@ export default function FullWidthTabs() {
       // Mengambil data dari Supabase secara paralel
       const [projectsResponse, certificatesResponse] = await Promise.all([
         supabase.from("projects").select("*").order('id', { ascending: true }),
-        supabase.from("certificates").select("*").order('id', { ascending: true }), 
+        supabase.from("certificates").select("*").order('id', { ascending: true }),
       ]);
 
       // Error handling untuk setiap request
@@ -181,10 +181,10 @@ export default function FullWidthTabs() {
     const cachedCertificates = localStorage.getItem('certificates');
 
     if (cachedProjects && cachedCertificates) {
-        setProjects(JSON.parse(cachedProjects));
-        setCertificates(JSON.parse(cachedCertificates));
+      setProjects(JSON.parse(cachedProjects));
+      setCertificates(JSON.parse(cachedCertificates));
     }
-    
+
     fetchData(); // Tetap panggil fetchData untuk sinkronisasi data terbaru
   }, [fetchData]);
 
@@ -210,20 +210,20 @@ export default function FullWidthTabs() {
       <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
         <div className="relative inline-block">
           <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
-           <h2 className="relative inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
+          <h2 className="relative inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-400">
             <span className="animate-shimmer bg-clip-text text-transparent bg-[linear-gradient(110deg,#fff,45%,#94a3b8,55%,#fff)] bg-[length:250%_100%]">
               Portfolio Showcase
             </span>
           </h2>
         </div>
         <div className="w-24 h-1 mx-auto mt-4 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500"></div>
-         <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-4 flex items-center justify-center gap-2">
-           <Sparkles className="w-4 h-4 text-primary-400 animate-pulse-slow" />
-           <span className="animate-shimmer bg-clip-text text-transparent bg-[linear-gradient(110deg,#fff,45%,#94a3b8,55%,#fff)] bg-[length:250%_100%]">
-             Explore my journey through projects, certifications, and technical expertise.
-             Each section represents a milestone in my continuous learning path.
-           </span>
-           <Sparkles className="w-4 h-4 text-secondary-400 animate-pulse-slow" />
+        <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-4 flex items-center justify-center gap-2">
+          <Sparkles className="w-4 h-4 text-primary-400 animate-pulse-slow" />
+          <span className="animate-shimmer bg-clip-text text-transparent bg-[linear-gradient(110deg,#fff,45%,#94a3b8,55%,#fff)] bg-[length:250%_100%]">
+            Explore my journey through projects, certifications, and technical expertise.
+            Each section represents a milestone in my continuous learning path.
+          </span>
+          <Sparkles className="w-4 h-4 text-secondary-400 animate-pulse-slow" />
         </p>
       </div>
 
@@ -323,87 +323,86 @@ export default function FullWidthTabs() {
           </Tabs>
         </AppBar>
 
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={setValue}
-        >
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            <div id="projects-section" className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
-                {displayedProjects.map((project, index) => (
-                  <div
-                    key={project.id || index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <CardProject
-                      Img={project.Img}
-                      Title={project.Title}
-                      Description={project.Description}
-                      Link={project.Link}
-                      id={project.id}
+        {[0, 1, 2, 3].map((tabIndex) => (
+          <TabPanel key={tabIndex} value={value} index={tabIndex} dir={theme.direction}>
+            {tabIndex === 0 && (
+              <div id="projects-section" className="container mx-auto flex justify-center items-center overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
+                  {displayedProjects.map((project, index) => (
+                    <div
+                      key={project.id || index}
+                      data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
+                      data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+                    >
+                      <CardProject
+                        Img={project.Img}
+                        Title={project.Title}
+                        Description={project.Description}
+                        Link={project.Link}
+                        id={project.id}
+                      />
+                    </div>
+                  ))}
+                </div>
+                {projects.length > initialItems && (
+                  <div className="mt-6 w-full flex justify-start">
+                    <ToggleButton
+                      onClick={() => toggleShowMore('projects')}
+                      isShowingMore={showAllProjects}
                     />
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-            {projects.length > initialItems && (
-              <div className="mt-6 w-full flex justify-start">
-                <ToggleButton
-                  onClick={() => toggleShowMore('projects')}
-                  isShowingMore={showAllProjects}
-                />
+            )}
+
+            {tabIndex === 1 && (
+              <div id="certificates-section" className="container mx-auto flex justify-center items-center overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
+                  {displayedCertificates.map((certificate, index) => (
+                    <div
+                      key={certificate.id || index}
+                      data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
+                      data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+                    >
+                      <Certificate ImgSertif={certificate.Img} />
+                    </div>
+                  ))}
+                </div>
+                {certificates.length > initialItems && (
+                  <div className="mt-6 w-full flex justify-start">
+                    <ToggleButton
+                      onClick={() => toggleShowMore('certificates')}
+                      isShowingMore={showAllCertificates}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
+            {tabIndex === 2 && (
+              <div id="techstack-section" className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
+                  {techStacks.map((stack, index) => (
+                    <div
+                      key={index}
+                      data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
+                      data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+                    >
+                      <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {tabIndex === 3 && (
+              <div id="experience-section" className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
+                <WorkExperience experiences={workExperiences} />
               </div>
             )}
           </TabPanel>
+        ))}
 
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            <div id="certificates-section" className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
-                {displayedCertificates.map((certificate, index) => (
-                  <div
-                    key={certificate.id || index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <Certificate ImgSertif={certificate.Img} />
-                  </div>
-                ))}
-              </div>
-            </div>
-            {certificates.length > initialItems && (
-              <div className="mt-6 w-full flex justify-start">
-                <ToggleButton
-                  onClick={() => toggleShowMore('certificates')}
-                  isShowingMore={showAllCertificates}
-                />
-              </div>
-            )}
-          </TabPanel>
-
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            <div id="techstack-section" className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
-                {techStacks.map((stack, index) => (
-                  <div
-                    key={index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </TabPanel>
-          
-          <TabPanel value={value} index={3} dir={theme.direction}>
-            <div id="experience-section" className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
-              <WorkExperience experiences={workExperiences} />
-            </div>
-          </TabPanel>
-        </SwipeableViews>
       </Box>
     </div>
   );
