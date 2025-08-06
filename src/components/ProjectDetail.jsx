@@ -5,7 +5,6 @@ import {
   ChevronRight, Layers, Layout, Globe, Package, Cpu, Code,
 } from "lucide-react";
 import Swal from 'sweetalert2';
-import Grid from "../assets/grid.svg";
 
 const TECH_ICONS = {
   React: Globe,
@@ -137,7 +136,7 @@ const ProjectDetails = () => {
           <div className="absolute top-0 -right-4 w-72 md:w-96 h-72 md:h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000" />
           <div className="absolute -bottom-8 left-20 w-72 md:w-96 h-72 md:h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000" />
         </div>
-        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: `url(${Grid})` }}/>
+        {/* <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: `url(${Grid})` }}/> */}
       </div>
 
       <div className="relative">
