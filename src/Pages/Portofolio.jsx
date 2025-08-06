@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 
 import { supabase } from "../supabase"; 
 
 import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
+import { useSwipeable } from "react-swipeable";
 import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
@@ -73,18 +73,21 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
 );
 
 
-function TabPanel({ children, value, index, ...other }) {
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
+      style={{ display: value === index ? 'block' : 'none' }}
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: { xs: 1, sm: 3 } }}>
-          <Typography component="div">{children}</Typography>
+        <Box sx={{ p: 3 }}>
+          <Typography component={"span"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -143,6 +146,21 @@ export default function FullWidthTabs() {
     AOS.init({
       once: false,
     });
+    
+    // Add CSS for swipeable container
+    const style = document.createElement('style');
+    style.textContent = `
+      .swipeable-container {
+        width: 100%;
+        overflow: hidden;
+        touch-action: pan-y;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
   }, []);
 
 
@@ -323,11 +341,46 @@ export default function FullWidthTabs() {
           </Tabs>
         </AppBar>
 
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={setValue}
-        >
+        <div className="swipeable-container">
+          {/* Swipe helper text */}
+          <div style={{ textAlign: 'center', margin: '10px 0', fontSize: '0.8rem', color: '#9ca3af' }}>
+            <span>Swipe left or right to navigate</span>
+          </div>
+          
+          {/* Swipe indicators */}
+          <div className="swipe-indicators" style={{ display: 'flex', justifyContent: 'center', margin: '5px 0' }}>
+            {[0, 1, 2, 3].map((index) => (
+              <div 
+                key={index}
+                onClick={() => setValue(index)}
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  margin: '0 5px',
+                  backgroundColor: value === index ? '#6366f1' : '#e5e7eb',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Custom swipeable implementation */}
+          <div 
+            {...useSwipeable({
+              onSwipedLeft: () => setValue(Math.min(value + 1, 3)),
+              onSwipedRight: () => setValue(Math.max(value - 1, 0)),
+              trackMouse: true,
+              preventDefaultTouchmoveEvent: true,
+              trackTouch: true
+            })}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%'
+            }}
+          >
           <TabPanel value={value} index={0} dir={theme.direction}>
             <div id="projects-section" className="container mx-auto flex justify-center items-center overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
@@ -403,7 +456,8 @@ export default function FullWidthTabs() {
               <WorkExperience experiences={workExperiences} />
             </div>
           </TabPanel>
-        </SwipeableViews>
+          </div>
+        </div>
       </Box>
     </div>
   );
