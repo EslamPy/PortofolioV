@@ -173,8 +173,6 @@ export default function FullWidthTabs() {
     }
   }, []);
 
-
-
   useEffect(() => {
     // Coba ambil dari localStorage dulu untuk laod lebih cepat
     const cachedProjects = localStorage.getItem('projects');
