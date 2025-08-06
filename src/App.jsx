@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useState } from 'react';
 import "./index.css";
 import Home from "./Pages/Home";
@@ -73,14 +73,14 @@ function App() {
 
   return (
     <WorkExperienceProvider experiences={workExperiences}>
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/" element={<LandingPage showWelcome={showWelcome} setShowWelcome={setShowWelcome} />} />
           <Route path="/project/:id" element={<ProjectPageLayout />} />
           <Route path="/experience/:id" element={<WorkExperienceDetailPage />} />
           <Route path="*" element={<NotFoundPage />} /> {/* 404 route */}
         </Routes>
-      </BrowserRouter>
+      </Router>
     </WorkExperienceProvider>
   );
 }

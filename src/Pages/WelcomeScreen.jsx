@@ -55,14 +55,22 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
       mirror: false,
     });
 
-    const timer = setTimeout(() => {
+    // First timer: show welcome screen for longer
+    const loadingTimer = setTimeout(() => {
       setIsLoading(false);
-      setTimeout(() => {
-        onLoadingComplete?.();
-      }, 1000);
-    }, 4000);
+    }, 5000);
     
-    return () => clearTimeout(timer);
+    // Second timer: notify parent component after exit animation completes
+    const completeTimer = setTimeout(() => {
+      if (onLoadingComplete) {
+        onLoadingComplete();
+      }
+    }, 7000);
+    
+    return () => {
+      clearTimeout(loadingTimer);
+      clearTimeout(completeTimer);
+    };
   }, [onLoadingComplete]);
 
   const containerVariants = {
