@@ -49,31 +49,20 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log('WelcomeScreen mounted, setting up AOS');
     AOS.init({
       duration: 1000,
       once: false,
       mirror: false,
     });
 
-    console.log('WelcomeScreen: Starting loading timer');
     const timer = setTimeout(() => {
-      console.log('WelcomeScreen: Loading timer completed, setting isLoading to false');
       setIsLoading(false);
       setTimeout(() => {
-        console.log('WelcomeScreen: Calling onLoadingComplete callback');
-        if (onLoadingComplete) {
-          onLoadingComplete();
-        } else {
-          console.warn('WelcomeScreen: onLoadingComplete callback is undefined');
-        }
+        onLoadingComplete?.();
       }, 1000);
     }, 4000);
     
-    return () => {
-      console.log('WelcomeScreen: Cleaning up timers');
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [onLoadingComplete]);
 
   const containerVariants = {

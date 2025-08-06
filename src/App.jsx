@@ -16,18 +16,11 @@ import { WorkExperienceProvider } from "./context/WorkExperienceContext";
 import { workExperiences } from "./data/workExperiences";
 
 const LandingPage = ({ showWelcome, setShowWelcome }) => {
-  console.log('LandingPage rendering, showWelcome:', showWelcome);
-
   return (
     <>
       <AnimatePresence mode="wait">
         {showWelcome && (
-          <WelcomeScreen 
-            onLoadingComplete={() => {
-              console.log('WelcomeScreen loading complete callback triggered');
-              setShowWelcome(false);
-            }} 
-          />
+          <WelcomeScreen onLoadingComplete={() => setShowWelcome(false)} />
         )}
       </AnimatePresence>
 
@@ -78,11 +71,9 @@ const ProjectPageLayout = () => (
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
 
-  console.log('App rendering, showWelcome:', showWelcome);
-
   return (
     <WorkExperienceProvider experiences={workExperiences}>
-      <BrowserRouter basename="/">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage showWelcome={showWelcome} setShowWelcome={setShowWelcome} />} />
           <Route path="/project/:id" element={<ProjectPageLayout />} />
