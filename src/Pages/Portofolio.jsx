@@ -82,14 +82,19 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
-      style={{ display: value === index ? 'block' : 'none' }}
+      style={{
+        display: 'block',
+        opacity: value === index ? 1 : 0,
+        visibility: value === index ? 'visible' : 'hidden',
+        position: value === index ? 'relative' : 'absolute',
+        zIndex: value === index ? 1 : 0,
+        transition: 'opacity 0.3s ease, visibility 0.3s ease'
+      }}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography component={"span"}>{children}</Typography>
-        </Box>
-      )}
+      <Box sx={{ p: { xs: 1, sm: 3 } }}>
+        <Typography component={"div"}>{children}</Typography>
+      </Box>
     </div>
   );
 }
@@ -143,9 +148,10 @@ export default function FullWidthTabs() {
   const initialItems = isMobile ? 4 : 6;
 
   useEffect(() => {
-    AOS.init({
-      once: false,
-    });
+    AOS.init();
+    fetchProjects();
+    fetchCertificates();
+    fetchTechStacks();
     
     // Add CSS for swipeable container
     const style = document.createElement('style');
@@ -154,12 +160,40 @@ export default function FullWidthTabs() {
         width: 100%;
         overflow: hidden;
         touch-action: pan-y;
+        position: relative;
+      }
+      .swipeable-view {
+        position: relative;
+        transition: transform 0.3s ease;
+        touch-action: pan-y;
+      }
+      .swipe-indicators {
+        display: flex;
+        justify-content: center;
+        margin: 5px 0;
+      }
+      .swipe-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .MuiBox-root {
+        width: 100%;
+      }
+      [role="tabpanel"] {
+        width: 100%;
+        transition: opacity 0.3s ease;
       }
     `;
     document.head.appendChild(style);
     
     return () => {
-      document.head.removeChild(style);
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
     };
   }, []);
 
@@ -348,19 +382,14 @@ export default function FullWidthTabs() {
           </div>
           
           {/* Swipe indicators */}
-          <div className="swipe-indicators" style={{ display: 'flex', justifyContent: 'center', margin: '5px 0' }}>
+          <div className="swipe-indicators">
             {[0, 1, 2, 3].map((index) => (
               <div 
                 key={index}
                 onClick={() => setValue(index)}
+                className="swipe-indicator"
                 style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  margin: '0 5px',
-                  backgroundColor: value === index ? '#6366f1' : '#e5e7eb',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer'
+                  backgroundColor: value === index ? '#6366f1' : '#e5e7eb'
                 }}
               />
             ))}
@@ -373,13 +402,18 @@ export default function FullWidthTabs() {
               onSwipedRight: () => setValue(Math.max(value - 1, 0)),
               trackMouse: true,
               preventDefaultTouchmoveEvent: true,
-              trackTouch: true
+              trackTouch: true,
+              delta: 10,
+              swipeDuration: 500,
+              touchEventOptions: { passive: false }
             })}
             style={{
               display: 'flex',
               flexDirection: 'column',
-              width: '100%'
+              width: '100%',
+              minHeight: '200px'
             }}
+            className="swipeable-view"
           >
           <TabPanel value={value} index={0} dir={theme.direction}>
             <div id="projects-section" className="container mx-auto flex justify-center items-center overflow-hidden">
