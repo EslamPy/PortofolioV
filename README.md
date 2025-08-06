@@ -17,7 +17,10 @@ A modern, responsive portfolio website built with React, Vite, and Tailwind CSS.
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React**: UI library for building component-based interfaces
+- **React**: UI library for building component-based interfaces and using the UX design principles
+- **React DOM**: React package for working with the DOM
+- **React Router**: Navigation and routing for React applications
+- **React Context API**: State management for global application state
 - **Vite**: Next-generation frontend tooling for faster development
 - **Tailwind CSS**: Utility-first CSS framework for rapid UI development
 - **Framer Motion**: Animation library for React
