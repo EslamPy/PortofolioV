@@ -1,7 +1,5 @@
 # Personal Portfolio Website
 
-![Portfolio Preview](public/Photo.png)
-
 A modern, responsive portfolio website built with React, Vite, and Tailwind CSS. This portfolio showcases my skills, projects, work experience, and provides a way for potential clients or employers to contact me.
 
 ## 🚀 Features
