@@ -96,7 +96,7 @@ const ScrollIndicator = memo(() => {
 });
 
 const FloatingParticle = memo(({ delay, size, left, top, color }) => (
-  <div 
+  <div
     className={`absolute rounded-full animate-float opacity-70 ${size === 'sm' ? 'w-1 h-1' : size === 'md' ? 'w-2 h-2' : 'w-3 h-3'}`}
     style={{
       left: `${left}%`,
@@ -197,11 +197,10 @@ const Home = () => {
       progressiveLoad: true,
     },
     style: { width: "100%", height: "100%" },
-    className: `w-full h-full transition-all duration-500 ${
-      isHovering 
-        ? "scale-[180%] sm:scale-[160%] md:scale-[150%] lg:scale-[145%] rotate-2" 
+    className: `w-full h-full transition-all duration-500 ${isHovering
+        ? "scale-[180%] sm:scale-[160%] md:scale-[150%] lg:scale-[145%] rotate-2"
         : "scale-[175%] sm:scale-[155%] md:scale-[145%] lg:scale-[140%]"
-    }`
+      }`
   };
 
   return (
@@ -210,7 +209,7 @@ const Home = () => {
       {PARTICLES.map((particle, index) => (
         <FloatingParticle key={index} {...particle} />
       ))}
-      
+
       <div className={`relative z-10 transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
         <div className="container mx-auto min-h-screen">
           <div className="flex flex-col lg:flex-row items-center justify-center h-screen md:justify-between gap-0 sm:gap-12 lg:gap-20">
@@ -270,30 +269,29 @@ const Home = () => {
                 {/* Decorative corner elements */}
                 <div className="absolute -top-4 -right-4 w-16 h-16 border-t-2 border-r-2 border-primary-500/30 rounded-tr-xl"></div>
                 <div className="absolute -bottom-4 -left-4 w-16 h-16 border-b-2 border-l-2 border-secondary-500/30 rounded-bl-xl"></div>
-                
+
                 {/* Glow effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-600/10 rounded-3xl blur-3xl transition-all duration-700 ease-in-out ${
-                  isHovering ? "opacity-70 scale-105" : "opacity-30 scale-100"
-                }`}>
+                <div className={`absolute inset-0 bg-gradient-to-r from-primary-600/10 to-secondary-600/10 rounded-3xl blur-3xl transition-all duration-700 ease-in-out ${isHovering ? "opacity-70 scale-105" : "opacity-30 scale-100"
+                  }`}>
                 </div>
 
                 {/* Main visualization container with glass effect */}
-                <div className={`relative lg:left-12 z-10 w-full opacity-90 transform transition-transform duration-500 ${
-                  isHovering ? "scale-105" : "scale-100"
-                }`}>
+                <div className={`relative lg:left-12 z-10 w-full opacity-90 transform transition-transform duration-500 ${isHovering ? "scale-105" : "scale-100"
+                  }`}>
                   {/* 3D Code Visualization */}
                   <div className="relative w-full h-full min-h-[300px] overflow-hidden">
                     {/* Floating code elements */}
-                    <div className="absolute top-[10%] left-[5%] glass-effect-dark p-3 rounded-lg border border-primary-500/20 transform rotate-[-5deg] animate-float" style={{animationDelay: '0.5s'}}>
+                    <div className="absolute top-[10%] left-[5%] glass-effect-dark p-3 rounded-lg border border-primary-500/20 transform rotate-[-5deg] animate-float" style={{ animationDelay: '0.5s' }}>
                       <Code className="w-6 h-6 text-primary-400" />
                     </div>
-                    <div className="absolute top-[30%] right-[15%] glass-effect-dark p-3 rounded-lg border border-secondary-500/20 transform rotate-[8deg] animate-float" style={{animationDelay: '1.2s'}}>
+                    <div className="absolute top-[30%] right-[15%] glass-effect-dark p-3 rounded-lg border border-secondary-500/20 transform rotate-[8deg] animate-float" style={{ animationDelay: '1.2s' }}>
                       <Zap className="w-6 h-6 text-secondary-400" />
                     </div>
-                    <div className="absolute bottom-[20%] left-[20%] glass-effect-dark p-3 rounded-lg border border-primary-500/20 transform rotate-[-8deg] animate-float" style={{animationDelay: '0.8s'}}>
+                    <div className="absolute bottom-[20%] left-[20%] glass-effect-dark p-3 rounded-lg border border-primary-500/20 transform rotate-[-8deg] animate-float" style={{ animationDelay: '0.8s' }}>
                       <Star className="w-6 h-6 text-primary-400" />
                     </div>
-                    
+
+                    {/* Central code block */}
                     {/* Central code block */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80%] glass-card p-4 border border-white/10 shadow-glow-md shadow-primary-500/20">
                       <div className="flex items-center gap-2 mb-2">
@@ -302,13 +300,13 @@ const Home = () => {
                         <div className="w-3 h-3 rounded-full bg-green-500/70"></div>
                         <div className="ml-2 text-xs text-gray-400 font-mono">Code.jsx</div>
                       </div>
-                      <div className="font-mono text-xs sm:text-sm text-gray-300 space-y-1">
+                      <div className="font-mono text-xs sm:text-sm text-gray-300 space-y-1 tracking-wide">
                         <div className="flex">
                           <span className="text-gray-500 w-5">1</span>
                           <span className="text-primary-400">import</span>
-                          <span className="text-white"> React </span>
-                          <span className="text-primary-400">from</span>
-                          <span className="text-secondary-400"> 'react'</span>
+                          <span className="text-white">&nbsp;React </span>
+                          <span className="text-primary-400">&nbsp;from</span>
+                          <span className="text-secondary-400"> &nbsp;'react'</span>
                         </div>
                         <div className="flex">
                           <span className="text-gray-500 w-5">2</span>
@@ -316,10 +314,10 @@ const Home = () => {
                         </div>
                         <div className="flex">
                           <span className="text-gray-500 w-5">3</span>
-                          <span className="text-primary-400">const</span>
-                          <span className="text-blue-400"> Portfolio </span>
-                          <span className="text-white">= () </span>
-                          <span className="text-primary-400">= </span>
+                          <span className="text-primary-400">&nbsp;const</span>
+                          <span className="text-blue-400"> &nbsp;Portfolio </span>
+                          <span className="text-white">&nbsp;= () </span>
+                          <span className="text-primary-400">&nbsp;= &nbsp;</span>
                           <span className="text-white">&#123;</span>
                         </div>
                         <div className="flex">
@@ -330,9 +328,9 @@ const Home = () => {
                         <div className="flex">
                           <span className="text-gray-500 w-5">5</span>
                           <span className="pl-6 text-blue-300">&lt;div</span>
-                          <span className="text-primary-300"> className</span>
-                          <span className="text-white">=</span>
-                          <span className="text-secondary-400">"portfolio"</span>
+                          <span className="text-primary-300"> &nbsp;className</span>
+                          <span className="text-white">&nbsp;=</span>
+                          <span className="text-secondary-400">&nbsp;"portfolio"</span>
                           <span className="text-blue-300">&gt;</span>
                         </div>
                         <div className="flex">
@@ -353,24 +351,23 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-                    
+
+
                     {/* Animated particles */}
                     <div className="absolute top-[15%] right-[10%] w-2 h-2 rounded-full bg-primary-400 animate-pulse-slow"></div>
-                    <div className="absolute bottom-[25%] right-[25%] w-2 h-2 rounded-full bg-secondary-400 animate-pulse-slow" style={{animationDelay: '1s'}}></div>
-                    <div className="absolute top-[40%] left-[10%] w-2 h-2 rounded-full bg-primary-400 animate-pulse-slow" style={{animationDelay: '0.5s'}}></div>
-                    
+                    <div className="absolute bottom-[25%] right-[25%] w-2 h-2 rounded-full bg-secondary-400 animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+                    <div className="absolute top-[40%] left-[10%] w-2 h-2 rounded-full bg-primary-400 animate-pulse-slow" style={{ animationDelay: '0.5s' }}></div>
+
                     {/* Connection lines */}
                     <div className="absolute top-[20%] left-[30%] w-[20%] h-[1px] bg-gradient-to-r from-primary-500/50 to-transparent transform rotate-[30deg]"></div>
                     <div className="absolute top-[60%] right-[20%] w-[25%] h-[1px] bg-gradient-to-l from-secondary-500/50 to-transparent transform rotate-[-20deg]"></div>
                   </div>
                 </div>
 
-                <div className={`absolute inset-0 pointer-events-none transition-all duration-700 ${
-                  isHovering ? "opacity-50" : "opacity-20"
-                }`}>
-                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-indigo-500/10 to-purple-500/10 blur-3xl animate-[pulse_6s_cubic-bezier(0.4,0,0.6,1)_infinite] transition-all duration-700 ${
-                    isHovering ? "scale-110" : "scale-100"
+                <div className={`absolute inset-0 pointer-events-none transition-all duration-700 ${isHovering ? "opacity-50" : "opacity-20"
                   }`}>
+                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-indigo-500/10 to-purple-500/10 blur-3xl animate-[pulse_6s_cubic-bezier(0.4,0,0.6,1)_infinite] transition-all duration-700 ${isHovering ? "scale-110" : "scale-100"
+                    }`}>
                   </div>
                 </div>
               </div>
