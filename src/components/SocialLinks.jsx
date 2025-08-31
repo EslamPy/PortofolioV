@@ -37,7 +37,7 @@ const socialLinks = [
     url: "https://stackoverflow.com",
     color: "#F48024",
     gradient: "from-[#F48024] via-[#FFB36B] to-[#FFF5EB]"
-  },  
+  },
   {
     name: "YouTube",
     displayName: "Youtube",
