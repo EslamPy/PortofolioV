@@ -220,7 +220,7 @@ const AboutPage = () => {
                 </span>
                 <span className="block mt-2 text-gray-200" data-aos="fade-right" data-aos-duration="1300">
                   {" "}
-                  Islam Hany
+                  Islam Hani
                 </span>
               </h2>
             </div>

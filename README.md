@@ -110,4 +110,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-Designed and developed with ❤️ by [Islam Hany](https://github.com/EslamPy)
+Designed and developed with ❤️ by [Islam Hani](https://github.com/EslamPy)

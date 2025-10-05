@@ -86,7 +86,7 @@ const Navbar = () => {
                     {/* Logo */}
                     <div className="flex-shrink-0 relative group">
                         <div className="absolute -inset-2 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <a href="#Home" onClick={(e) => scrollToSection(e, "#Home")} className="text-xl font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent relative z-10 transition-all duration-300 group-hover:tracking-wider">Islam Hany</a>
+                        <a href="#Home" onClick={(e) => scrollToSection(e, "#Home")} className="text-xl font-bold bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent relative z-10 transition-all duration-300 group-hover:tracking-wider">Islam Hani</a>
                     </div>
         
                     {/* Desktop Navigation */}
